@@ -13,10 +13,24 @@ public class ProductRepository {
 
         try (Connection conn = DriverManager.getConnection(URL);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM products")) {
+             ResultSet rs = stmt.executeQuery("SELECT p.*, c.name AS category_name\n" +
+                     "FROM products p\n" +
+                     "LEFT JOIN products_categories pc ON p.product_id = pc.product_id\n" +
+                     "LEFT JOIN categories c ON pc.category_id = c.category_id")) {
 
             while (rs.next()) {
-                Product product = new Product(rs.getString("name"), rs.getDouble("price"));
+                Product product = new Product(
+                        rs.getString("name"),
+                        rs.getInt("product_id"),
+                        rs.getInt("manufacturer_id"),
+                        rs.getDouble("price"),
+                        rs.getInt("stock_quantity"),
+                        rs.getString("description")
+                );
+                if (rs.getString("category") != null) {
+                    product.setCategory(rs.getString("category"));
+                }
+
                 products.add(product);
             }
         }
@@ -31,7 +45,12 @@ public class ProductRepository {
             selectStmt.setString(1, "%" + productName.toLowerCase() + "%");
             ResultSet rs = selectStmt.executeQuery();
             if (rs.next()) {
-                product = new Product(rs.getString("name"), rs.getDouble("price"));
+                product = new Product(
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getInt("manufacturer_id"),
+                        rs.getInt("stock_quantity"),
+                        rs.getString("description"));
                 System.out.println(product.getName() + " " + product.getPrice() + "€");
 
             }
@@ -50,7 +69,9 @@ public class ProductRepository {
             selectStmt.setString(1, category.toLowerCase());
             ResultSet rs = selectStmt.executeQuery();
             while (rs.next()) {
-                Product product = new Product(rs.getString("productName"), rs.getDouble("price"));
+                Product product = new Product(
+                        rs.getString("productName"),
+                        rs.getDouble("price"));
                 products.add(product);
 
             }
@@ -72,7 +93,9 @@ public class ProductRepository {
                 selectStmt.setString(1, "%" + name.toLowerCase() + "%");
                 ResultSet rs = selectStmt.executeQuery();
                 if (rs.next()) {
-                    updatedProduct = new Product(rs.getString("name"), rs.getDouble("price"));
+                    updatedProduct = new Product(
+                            rs.getString("name"),
+                            rs.getDouble("price"));
                     System.out.println("The product: " + updatedProduct.getName() + " price was updated successfully");
                 }
             }
@@ -101,7 +124,9 @@ public class ProductRepository {
                 ResultSet rs = selectStmt.executeQuery();
                 System.out.println("Selected query executed");
                 if (rs.next()) {
-                    updatedProduct = new Product(rs.getString("name"), rs.getDouble("price"));
+                    updatedProduct = new Product(
+                            rs.getString("name"),
+                            rs.getDouble("price"));
                     updatedProduct.setStock_quantity(rs.getInt("stock_quantity"));
                     System.out.println("Product created with stock: " + updatedProduct.getStock_quantity());
                 }
@@ -133,6 +158,7 @@ public class ProductRepository {
                 if (rs.next()) {
                     newProduct = new Product(
                             rs.getString("name"),
+
                             rs.getInt("manufacturer_id"),
                             rs.getDouble("price"),
                             rs.getInt("stock_quantity"),

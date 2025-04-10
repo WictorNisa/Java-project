@@ -79,7 +79,13 @@ public class ProductController {
                 System.out.println("Enter the stock of the product");
                 int newStock = scanner.nextInt();
                 scanner.nextLine();
-                Product newProduct = productService.addNewProduct(newProudctName, manufacturerID, newProudctPrice, newStock, newProudctDescription);
+                Product newProduct = productService.addNewProduct(
+                        newProudctName,
+                        manufacturerID,
+                        newProudctPrice,
+                        newStock,
+                        newProudctDescription
+                );
                 System.out.println("New product = " + newProduct);
                 break;
 

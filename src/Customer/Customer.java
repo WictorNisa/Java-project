@@ -1,5 +1,10 @@
 package Customer;
 
+import Orders.Order;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
     private int customer_id;
     private String name;
@@ -7,6 +12,7 @@ public class Customer {
     private String phone;
     private String address;
     private String password;
+    private List<Order> orders = new ArrayList<>();
 
     public Customer(int customer_id, String name, String email) {
         this.customer_id = customer_id;
@@ -68,6 +74,19 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
     }
 }
 

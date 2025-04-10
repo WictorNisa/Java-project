@@ -21,8 +21,8 @@ Projektet ska implementeras med trelagerarkitektur:
 - Lägga till nya produkter (INSERT into products)  ✅
 
 ### Ordrar
-- Se orderhistorik för en kund (SELECT med JOIN på orders och customers WHERE customer_id = ?)
-- Lägga en order (INSERT into orders)
+- Se orderhistorik för en kund (SELECT med JOIN på orders och customers WHERE customer_id = ?) ✅
+- Lägga en order (INSERT into orders) ✅
 - Lägga en order med flera produkter (INSERT into orders_products)
 - Ange antal av produkten vid orderläggning (Görs tillsammans med ovan INSERT)
 - Se totala priset på en order (Räkna ihop priset gånger antalet)

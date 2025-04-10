@@ -27,6 +27,7 @@ public class ProductService {
         return productRepository.UpdateProductStock(name, stock);
     }
 
+
     public Product addNewProduct(String name, int manufacturer_id, double price, int quantity, String description) throws SQLException {
         return productRepository.addNewProduct(name, manufacturer_id, price, quantity, description);
     }
