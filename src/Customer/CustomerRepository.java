@@ -10,7 +10,6 @@ public class CustomerRepository {
     public ArrayList<Customer> getAll() throws SQLException {
 
         ArrayList<Customer> customers = new ArrayList<Customer>();
-        System.out.println("Detta är metoden för att hämta alla customers getAll()");
         try (Connection conn = DriverManager.getConnection(URL);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM customers")) {

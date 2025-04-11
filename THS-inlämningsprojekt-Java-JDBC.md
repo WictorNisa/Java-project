@@ -23,9 +23,9 @@ Projektet ska implementeras med trelagerarkitektur:
 ### Ordrar
 - Se orderhistorik för en kund (SELECT med JOIN på orders och customers WHERE customer_id = ?) ✅
 - Lägga en order (INSERT into orders) ✅
-- Lägga en order med flera produkter (INSERT into orders_products)
-- Ange antal av produkten vid orderläggning (Görs tillsammans med ovan INSERT)
-- Se totala priset på en order (Räkna ihop priset gånger antalet)
+- Lägga en order med flera produkter (INSERT into orders_products) ✅
+- Ange antal av produkten vid orderläggning (Görs tillsammans med ovan INSERT) ✅
+- Se totala priset på en order (Räkna ihop priset gånger antalet) ✅
 
 ### Validering
 - Validering för alla inserts, updates och sökningar (Tex inte kunna ange negativt tal i quantity)
