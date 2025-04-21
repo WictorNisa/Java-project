@@ -12,3 +12,10 @@ public class Main {
         menu.mainMenu();
     }
 }
+
+
+
+//Things left to do
+// Make sure that when an order is placed the stock quantity is reduced
+// Double check naming and method names to make sure that things make sense
+// Check that the program works and that errors are caught properly

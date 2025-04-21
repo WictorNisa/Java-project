@@ -47,6 +47,9 @@ public class CustomerRepository {
                 System.out.println(rs.getString("password"));
             }
         }
+        if (customers.isEmpty()) {
+            return null;
+        }
         return customers.getFirst();
     }
 

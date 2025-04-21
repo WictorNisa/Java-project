@@ -27,8 +27,8 @@ public class ProductRepository {
                         rs.getInt("stock_quantity"),
                         rs.getString("description")
                 );
-                if (rs.getString("category") != null) {
-                    product.setCategory(rs.getString("category"));
+                if (rs.getString("category_name") != null) {
+                    product.setCategory(rs.getString("category_name"));
                 }
 
                 products.add(product);
@@ -52,7 +52,7 @@ public class ProductRepository {
                         rs.getInt("stock_quantity"),
                         rs.getString("description"));
                 System.out.println(product.getName() + " " + product.getPrice() + "€");
-
+                product.setProduct_id(rs.getInt("product_id"));
             }
         }
         return product;

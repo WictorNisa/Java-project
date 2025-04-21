@@ -21,6 +21,7 @@ public class OrderController {
         System.out.println("1. View order history for a customer by their id");
         System.out.println("2. Add a new order");
         System.out.println("3. Add multiple products to a order");
+        System.out.println("4. View the total price of an order");
         String select = scanner.nextLine();
         switch (select) {
             case "1":
@@ -273,7 +274,65 @@ public class OrderController {
                     }
                 }
                 break;
+            case "4":
+                System.out.println("Enter the id of the order: ");
 
+                try {
+                    int orderId = Integer.parseInt(scanner.nextLine().trim());
+                    Order order = orderService.getOrderId(orderId);
+
+                    if (order == null) {
+                        System.out.println("\n❌ Order not found!");
+                        System.out.println("No order with ID " + orderId + " exists in the system.");
+                        break;
+                    }
+
+                    Customer ordersCustomer = customerService.getCustomerById(order.getCustomer_id());
+
+                    List<Product> orderProducts = orderService.getOrderProducts(orderId);
+
+                    double totalPrice = orderService.getTotalPrice(orderId);
+
+                    System.out.println("\n" + "-".repeat(60));
+                    System.out.println("ORDER SUMMARY (#" + orderId + ")");
+                    System.out.println("-".repeat(60));
+                    System.out.println("Date:     " + order.getDate_time());
+                    if (ordersCustomer != null) {
+                        System.out.println("Customer: " + ordersCustomer.getName());
+                    } else {
+                        System.out.println("Customer: [Unknown]");
+                    }
+
+                    System.out.println("\nITEMS:");
+                    System.out.println("-".repeat(60));
+                    System.out.printf("%-30s %-10s %-10s %s\n", "PRODUCT", "PRICE", "QUANTITY", "SUBTOTAL");
+                    System.out.println("-".repeat(60));
+
+                    if (orderProducts.isEmpty()) {
+                        System.out.println("No items in this order.");
+
+                    } else {
+                        for (Product product : orderProducts) {
+                            int qty = product.getQuantity();
+                            double subtotal = product.getPrice() * qty;
+                            System.out.printf("%-30s $%-9.2f %-10d $%.2f\n",
+                                    product.getName(),
+                                    product.getPrice(),
+                                    qty,
+                                    subtotal);
+                        }
+                    }
+
+                    System.out.println("-".repeat(60));
+                    System.out.printf("%-52s $%.2f\n", "TOTAL:", totalPrice);
+
+
+                } catch (NumberFormatException e) {
+                    System.out.println("⚠️ Invalid input! Please enter a valid order ID.");
+                } catch (SQLException e) {
+                    System.out.println("❌ Database error: " + e.getMessage());
+                }
+                break;
 
         }
     }

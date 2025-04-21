@@ -14,6 +14,10 @@ public class Order {
         this.date_time = date_time;
     }
 
+    public Order(int order_id) {
+        this.order_id = order_id;
+    }
+
     public int getOrder_id() {
         return order_id;
     }
